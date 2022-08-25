@@ -2,18 +2,13 @@
 #-------------------Base Setup--------------------------------------------------
 rm(list=ls())
 
-<<<<<<< HEAD
-
-=======
-LAPTOP<-TRUE
->>>>>>> main
 
 #---Set Project Directories
 
 ##--FIND THE PATH TO YOUR WORKING DIRECTORY-
 ##-IF YOU DON'T KNOW HOW- GO TO SESSION->SET WORKING DIRECTORY->CHOOSE DIRECTORY-> ##
 
-dirBase<-'~/git/forecast_viewer_file_prep/'
+dirBase<-'~/git/forecast_viewer_file_prep_class/'
 
 
 
