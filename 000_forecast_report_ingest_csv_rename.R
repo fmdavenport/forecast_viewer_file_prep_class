@@ -34,13 +34,13 @@ library(sf)
 # Ingest Main CSV ---------------------------------------------------------
 setwd(dirViewer)
 
-d<-read.csv('viewer_data.csv')
+##d<-read.csv('viewer_data.csv')
 
 
 #--NOT RUN--
-setwd(dirRdata)
-d<-filter(d,country=='Kenya')
-save(d,file='000_viewer_data_csv_Kenya.Rdata')
+# setwd(dirRdata)
+# d<-filter(d,country=='Kenya')
+# save(d,file='000_viewer_data_csv_Kenya.Rdata')
 
 ##--IF THE VIEWER_DATA.CSV WILL NOT LOAD OR TAKES TOO LONG TO LOAD- TRY THIS:
 setwd(dirRdata)
