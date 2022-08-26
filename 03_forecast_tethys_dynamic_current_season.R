@@ -17,7 +17,7 @@ dirViewer<-paste0(dirBase,'viewer/')
 dirViewerOutStatic<-paste0(dirViewer,'viewer_static_shapes/')
 dirViewerDynamic<-paste0(dirViewer,'viewer_dynamic_shapes/')
 
-#-R data files
+#-R data files¢
 dirRdata<-paste0(dirBase,'rdata/')
 
 library(stringr)
@@ -36,7 +36,7 @@ source('999_forecast_tethys_custom_functions.R')
 
 #Set Parameters
 CURRENT_YEAR<-2022  #Year that Planting Season Starts
-MONTH<-2  #this is the month when forecasts start, 9 for Somalia, 10 for Malawi
+MONTH<-2  #Month when forecasts start, 2 for Kenya & Somalia Long,  9 for K & Somalia short, 10 for Malawi
 DEKAD<-3
 MODEL<-'ET'
 PRODUCT<-'Maize'    #'Maize'  #Sorghum
@@ -48,6 +48,9 @@ SEASON<-'S1'  #SET TO S1 FOR 'LONG' AND 'S2' FOR SHORT- NEED THIS TO WRITE OUT T
 setwd(dirRdata)
 load('00_viewer_data_clean_names.Rdata')
 
+#--x2 Check when Forecast Starts by Country and Season
+table(d$country,d$season,d$f_start)
+
 #--Filter and Select Variables
 dfs<-dplyr::filter(d,product==PRODUCT,out.of.sample==2)
 dfs<-dplyr::filter(dfs,model==MODEL)
@@ -57,8 +60,9 @@ dfs<-dplyr::select(dfs,-product,-out.of.sample)
 #--Filter for Current Period
 dfsc<-dplyr::filter(dfs,year >= CURRENT_YEAR,f_start>= MONTH, dekad %in% DEKAD)  #current forecast  
 
-##Test if it crosses calendar year and exclude forecasts from prior year ##
-#X2 CHECK THIS!!!
+##Test if forecast crosses calendar year and exclude forecasts from prior year ##
+#Still Working on this
+# Need to make we don't get forecasts from prior year-- Only a concern for Malawi
 nyears<-length(unique(dfsc$year))
 if(nyears>1){
   min_year<-min(dfsc$year)
@@ -67,10 +71,10 @@ if(nyears>1){
 
 
 # Forecasts ---------------------------------------------------------------
-dfsc<-dplyr::filter(dfsc,variable %in% c('yield_fcst_high_p10','yield_fcst_low_p10','yield_fcst_p10'))
+dfsc<-dplyr::filter(dfsc,variable %in% c('yield_fcst_high_p10','yield_fcst_low_p10','yield_fcst_p10')) #grab the percent of 10 year mean forecast
 dfsc<-dplyr::select(dfsc,fnid:season,model,month,dekad,variable,value)
 
-dfsc$value<-if_else(dfsc$value<0,0,dfsc$value)  #correct some negative values
+dfsc$value<-if_else(dfsc$value<0,0,dfsc$value)  #if forecast is negative, change to 0
 
 
 #--Recode Variables for Shorter Names

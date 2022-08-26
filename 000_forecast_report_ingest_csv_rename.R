@@ -34,7 +34,7 @@ library(sf)
 # Ingest Main CSV ---------------------------------------------------------
 setwd(dirViewer)
 
-##d<-read.csv('viewer_data.csv')
+#d<-read.csv('viewer_data.csv')
 
 
 #--NOT RUN--
@@ -44,7 +44,7 @@ setwd(dirViewer)
 
 ##--IF THE VIEWER_DATA.CSV WILL NOT LOAD OR TAKES TOO LONG TO LOAD- TRY THIS:
 setwd(dirRdata)
-load('000_viewer_data_csv_Kenya.Rdata')  #MORE COMPRESSED VERSION OF FILE WITH JUST KENYA
+#load('000_viewer_data_csv_Kenya.Rdata')  #MORE COMPRESSED VERSION OF FILE WITH JUST KENYA
 
 d<-dplyr::select(d,-X)  #get rid of an extra colunm
 
