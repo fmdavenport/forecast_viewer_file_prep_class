@@ -38,7 +38,7 @@ source('999_forecast_tethys_custom_functions.R')
 
 ##-- SET UP PARAMETERS FOR SEASON, DEKAD, PRODUCT,and MODEL
 SEASON<-'L'  #'L"
-DEKADS_HIST<-c(3)  
+DEKADS_HIST<-c(3)  #We will focus on the 3rd dekad
 PRODUCT<-'Maize'     #'Maize'  #Sorghum
 MODEL<-'GB'  #'ET'
 
@@ -65,6 +65,7 @@ dfs2<-filter(dfs,out.of.sample==2) #forecasts and hind casts done with current f
 dfs2<-filter(dfs2,year>=min(dfs1$year)) #only look at hind casts within same window as 1 year ahead
 
 #Custom Function to reformat historical forecast frames
+# This is pivot_wider with some convenience functions
 fun.dfs.format<-function(dfs){
   dfs$var_alias<-'f'
   dfs$value<-round(dfs$value,3)
@@ -79,6 +80,7 @@ fun.dfs.format<-function(dfs){
 dfw<-fun.dfs.format(dfs1)  #standard historical forecasts
 dfw2<-fun.dfs.format(dfs2) #hindcasts
 
+#--Check the colunm names
 fun.nl(dfw)
 fun.nl(dfw2)
 
@@ -98,7 +100,7 @@ fcast_monthly<-c(fcast_varsp10,fcast_varsp10_low,fcast_varsp10_high)
 
 dfs<-filter(d,variable %in% c(fcast_monthly))
 dfs<-droplevels(dfs)
-dfs$value<-if_else(dfs$value<0,0,dfs$value)  #correct some negative values
+dfs$value<-if_else(dfs$value<0,0,dfs$value)  #if there are negative forecasts, make them 0
 dfs<-dplyr::select(dfs,fnid:dekad,var_alias,out.of.sample,value)
 dfs<-filter(dfs,out.of.sample==1)
 
