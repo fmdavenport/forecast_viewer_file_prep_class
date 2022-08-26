@@ -39,7 +39,7 @@ source('999_forecast_tethys_custom_functions.R')
 ##-- SET UP PARAMETERS FOR SEASON, DEKAD, PRODUCT,and MODEL
 SEASON<-'L'  #'L"
 DEKADS_HIST<-c(3)  
-PRODUCT<-'Sorghum'     #'Maize'  #Sorghum
+PRODUCT<-'Maize'     #'Maize'  #Sorghum
 MODEL<-'GB'  #'ET'
 
 # Ingest Main CSV ---------------------------------------------------------

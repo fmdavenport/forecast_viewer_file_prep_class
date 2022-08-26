@@ -46,8 +46,10 @@ setwd(dirViewer)
 setwd(dirRdata)
 load('000_viewer_data_csv_Kenya.Rdata')  #MORE COMPRESSED VERSION OF FILE WITH JUST KENYA
 
-d<-dplyr::select(d,-X)
-#Recode Seasons
+d<-dplyr::select(d,-X)  #get rid of an extra colunm
+
+
+#Recode Seasons with to have shorter and more consistent names
 d$season<-recode_factor(d$season,Gu='L',Deyr='S',Long='L',Short='S',Main='L')
 
 
@@ -69,8 +71,27 @@ d$var_alias<-str_replace(d$var_alias,'crop','cp')
 
 #Reorder and rename to keep start month variables out of shapefiles
 d<-dplyr::select(d,fnid:season,month,dekad,day,everything())
+
+#-Create Variables f_start (month when a forecast starts) and s_start (month when a )
 d<-dplyr::rename(d,f_start=forecast_start_month,s_start=season_start_month)
 
 met_d<-base::date()  #add a date-time stamp to the metadata
 setwd(dirRdata)
 save(d,met_d,file='00_viewer_data_clean_names.Rdata')
+
+#-----Let's Examine Some of the Variables in the CSV File
+names(d)  #get the colunm names
+head(d)  #look at the first five rows
+
+
+#Lets discuss the variables and colunm names.
+#Most should be self-explanatory
+# The column 'variable' contains the forecast variables used in the viewer-- Let's examine the the content of that colunm
+
+unique(d$variable)
+#table(d$variable) #this might be slow on a laptop 
+# The spread sheeet 'viewer_csv_variables_names_descriptions' (included in training materials)  describes most of the variables:  
+#"https://docs.google.com/spreadsheets/d/1ezkOSMpGB0o0hO4adVuh-pJonYMnz8nH/edit?usp=sharing&ouid=116109725918193733454&rtpof=true&sd=true"
+
+
+
