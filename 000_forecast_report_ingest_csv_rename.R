@@ -35,7 +35,7 @@ library(sf)
 setwd(dirViewer)
 
 #d<-read.csv('viewer_data.csv')
-
+#d<-read.csv("http://data.chc.ucsb.edu/people/dlee/viewer/viewer_data.csv")
 
 #--NOT RUN--
 # setwd(dirRdata)
