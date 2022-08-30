@@ -34,8 +34,10 @@ library(sf)
 # Ingest Main CSV ---------------------------------------------------------
 setwd(dirViewer)
 
-#d<-read.csv('viewer_data.csv')
-#d<-read.csv("http://data.chc.ucsb.edu/people/dlee/viewer/viewer_data.csv")
+#--NOT RUN--
+#If you want to ingest "full" csv
+#d<-read.csv("http://data.chc.ucsb.edu/people/dlee/viewer/viewer_data.csv")  #or download to your machine first
+#--Not recommended on machines with <32G RAM
 
 #--NOT RUN--
 # setwd(dirRdata)
@@ -44,7 +46,7 @@ setwd(dirViewer)
 
 ##--IF THE VIEWER_DATA.CSV WILL NOT LOAD OR TAKES TOO LONG TO LOAD- TRY THIS:
 setwd(dirRdata)
-#load('000_viewer_data_csv_Kenya.Rdata')  #MORE COMPRESSED VERSION OF FILE WITH JUST KENYA
+load('000_viewer_data_csv_Kenya.Rdata')  #MORE COMPRESSED VERSION OF FILE WITH JUST KENYA
 
 d<-dplyr::select(d,-X)  #get rid of an extra colunm
 
