@@ -9,7 +9,7 @@ rm(list=ls())
 ##--FIND THE PATH TO YOUR WORKING DIRECTORY-
 ##-IF YOU DON'T KNOW HOW- GO TO SESSION->SET WORKING DIRECTORY->CHOOSE DIRECTORY-> ##
 
-dirBase<-'~/git/forecast_viewer_file_prep_class/'
+dirBase<-"~/git/forecast_viewer_file_prep_class/"
 
 
 
@@ -65,7 +65,7 @@ static_vars_all  #Have a look at the varialbes
 
 #--Select out Ag Stats
 dt<-filter(d,variable %in% c(static_vars_all))
-dt<-dplyr::select(dt,fnid:season,variable,var_alias,value)
+dt<-select(dt,fnid:season,variable,var_alias,value)
 dt<-droplevels(dt)
 
 dt<-dplyr::select(dt,fnid:season,var_alias,value)

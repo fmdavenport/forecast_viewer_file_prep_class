@@ -30,7 +30,7 @@ library(sf)
 #========================================================================================
 
 ##-- Source Custom Functions
-setwd('~/git/forecast_viewer_file_prep/')  #set this to where scripts are located
+setwd(dirBase)  #set this to where scripts are located
 source('999_forecast_tethys_custom_functions.R')
 
 

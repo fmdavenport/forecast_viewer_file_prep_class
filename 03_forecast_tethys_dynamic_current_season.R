@@ -16,6 +16,7 @@ dirBase<-'~/git/forecast_viewer_file_prep_class/'
 dirViewer<-paste0(dirBase,'viewer/')
 dirViewerOutStatic<-paste0(dirViewer,'viewer_static_shapes/')
 dirViewerDynamic<-paste0(dirViewer,'viewer_dynamic_shapes/')
+dirViewerCurrent<-paste0(dirViewer,'viewer_current_season_shapes/')
 
 #-R data files¢
 dirRdata<-paste0(dirBase,'rdata/')
@@ -29,7 +30,7 @@ library(sf)
 #========================================================================================
 
 ##-- Source Custom Functions
-setwd('~/git/forecast_viewer_file_prep/')  #set this to where scripts are located
+setwd(dirBase)  #set this to where scripts are located
 source('999_forecast_tethys_custom_functions.R')
 
 
@@ -49,7 +50,7 @@ setwd(dirRdata)
 load('00_viewer_data_clean_names.Rdata')
 
 #--x2 Check when Forecast Starts by Country and Season
-table(d$country,d$season,d$f_start)
+#table(d$country,d$season,d$f_start)
 
 #--Filter and Select Variables
 dfs<-dplyr::filter(d,product==PRODUCT,out.of.sample==2)
