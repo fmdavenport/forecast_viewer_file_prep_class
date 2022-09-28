@@ -168,7 +168,7 @@ DIR_sub<-paste0(DIR_sub,PRODUCT,'/')
 setwd(paste0(dirViewerDynamic,MODEL,'/',DIR_sub))
 
 st_write(sdf,paste0(SEASON,'_fcast_',MODEL,'.shp'),delete_dsn=TRUE)
-st_write(sdf,paste0(SEASON,'_fcast_',MODEL,'_HIND.shp'),delete_dsn=TRUE)
+st_write(sdf2,paste0(SEASON,'_fcast_',MODEL,'_HIND.shp'),delete_dsn=TRUE)
 st_write(sdfp,paste0(SEASON,'_fcast_',MODEL,'_percent.shp'),delete_dsn=TRUE)
 
 st_write(sde,paste0(SEASON,'_fcast_error_',MODEL,'.shp'),delete_dsn=TRUE)
