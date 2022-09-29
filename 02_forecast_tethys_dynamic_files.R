@@ -2,24 +2,41 @@
 #-------------------Base Setup--------------------------------------------------
 rm(list=ls())
 
+LAPTOP<-FALSE #WORKING ON LAPTOP?
 
+#---Set Project Directories
+dirBase<-'/Volumes/GoogleDrive/'
+dirBaseL<-'/Volumes/GoogleDrive-116109725918193733454/' #diff on Laptop?
+
+if(LAPTOP==TRUE){dirBase<-dirBaseL}
 
 #---Set Project Directories
 
 ##--FIND THE PATH TO YOUR WORKING DIRECTORY-
 ##-IF YOU DON'T KNOW HOW- GO TO SESSION->SET WORKING DIRECTORY->CHOOSE DIRECTORY-> ##
 
-dirBase<-'~/git/forecast_viewer_file_prep_class/'
+dirBase1<-paste0(dirBase,"Shared drives/Forecast Viewer/")
+dirBase2<-paste0(dirBase,'Shared drives/CHC Team Drive /')
+
+#dirBase<-"~/git/forecast_viewer_file_prep_class/"
+dirGit<-"~/git/forecast_viewer_file_prep_class/"
 
 
 
 #-Viewer Data Inputs and Outputs
-dirViewer<-paste0(dirBase,'viewer/')
+dirViewerBaseShape<-paste0(dirBase1,'viewer_base_shape/')
+dirViewer<-paste0(dirBase1,'viewer/')
 dirViewerOutStatic<-paste0(dirViewer,'viewer_static_shapes/')
 dirViewerDynamic<-paste0(dirViewer,'viewer_dynamic_shapes/')
 
 #-R data files
-dirRdata<-paste0(dirBase,'rdata/')
+#dirRdata<-paste0(dirBase,'rdata/')
+dirProj<-paste0(dirBase2,'project_machine_learning_forecasting/') #project directory
+dirReport<-paste0(dirProj,'forecast_reporting/')
+dirReportRdata<-paste0(dirReport,'forecast_reporting_Rdata/')
+
+#-R data files
+dirRdata<-dirReportRdata
 
 library(stringr)
 library(ggplot2)
@@ -30,16 +47,16 @@ library(sf)
 #========================================================================================
 
 ##-- Source Custom Functions
-setwd(dirBase)  #set this to where scripts are located
+setwd(dirGit)  #set this to where scripts are located
 source('999_forecast_tethys_custom_functions.R')
 
 
 
 
 ##-- SET UP PARAMETERS FOR SEASON, DEKAD, PRODUCT,and MODEL
-SEASON<-'L'  #'L"
+SEASON<-'S'  #'L"
 DEKADS_HIST<-c(3)  #We will focus on the 3rd dekad
-PRODUCT<-'Maize'     #'Maize'  #Sorghum
+PRODUCT<-'Sorghum'     #'Maize'  #Sorghum
 MODEL<-'GB'  #'ET'
 
 # Ingest Main CSV ---------------------------------------------------------
@@ -140,7 +157,7 @@ dmp<-pivot_wider(dmp,names_from=c(var_alias,month,dekad),values_from=value,names
 
 
 # Read in a Shapefile and Join with Shape ---------------------------------
-setwd(dirViewer)
+setwd(dirViewerBaseShape)
 dshp<-st_read('viewer_data.shp')
 dshp<-dplyr::select(dshp,FNID,ADMIN0)
 

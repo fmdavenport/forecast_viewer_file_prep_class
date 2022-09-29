@@ -1,7 +1,7 @@
 #-------------------Base Setup--------------------------------------------------
 rm(list=ls())
 
-LAPTOP<-TRUE #WORKING ON LAPTOP?
+LAPTOP<-FALSE #WORKING ON LAPTOP?
 
 #---Set Project Directories
 dirBase<-'/Volumes/GoogleDrive/'
@@ -14,7 +14,8 @@ if(LAPTOP==TRUE){dirBase<-dirBaseL}
 ##--FIND THE PATH TO YOUR WORKING DIRECTORY-
 ##-IF YOU DON'T KNOW HOW- GO TO SESSION->SET WORKING DIRECTORY->CHOOSE DIRECTORY-> ##
 
-dirBase<-paste0(dirBase,"Shared drives/Forecast Viewer/")
+dirBase1<-paste0(dirBase,"Shared drives/Forecast Viewer/")
+dirBase2<-paste0(dirBase,'Shared drives/CHC Team Drive /')
 
 #dirBase<-"~/git/forecast_viewer_file_prep_class/"
 dirGit<-"~/git/forecast_viewer_file_prep_class/"
@@ -22,19 +23,18 @@ dirGit<-"~/git/forecast_viewer_file_prep_class/"
 
 
 #-Viewer Data Inputs and Outputs
-dirViewer<-paste0(dirBase,'viewer/')
+dirViewer<-paste0(dirBase1,'viewer/')
 dirViewerOutStatic<-paste0(dirViewer,'viewer_static_shapes/')
 dirViewerDynamic<-paste0(dirViewer,'viewer_dynamic_shapes/')
 
 #-R data files
 #dirRdata<-paste0(dirBase,'rdata/')
-dirBase2<-paste0(dirBase,'Shared drives/CHC Team Drive /')
 dirProj<-paste0(dirBase2,'project_machine_learning_forecasting/') #project directory
 dirReport<-paste0(dirProj,'forecast_reporting/')
 dirReportRdata<-paste0(dirReport,'forecast_reporting_Rdata/')
 
 #-R data files
-dirRdata<-paste0(dirBase,'rdata/')
+dirRdata<-dirReportRdata
 
 library(stringr)
 library(ggplot2)
@@ -48,21 +48,28 @@ library(sf)
 
 
 # Ingest Main CSV ---------------------------------------------------------
-setwd(dirViewer)
+setwd(dirReportRdata)
 
 #--NOT RUN--
+#-Replace with download file instead?
 #If you want to ingest "full" csv
-#d<-read.csv("http://data.chc.ucsb.edu/people/dlee/viewer/viewer_data.csv")  #or download to your machine first
+
+#--TRY
+#download.file("http://data.chc.ucsb.edu/people/dlee/viewer/viewer_data.csv",destfile='viewer_data.csv')
+#--OR
+#d<-read.csv("http://data.chc.ucsb.edu/people/dlee/viewer/viewer_data.csv")
+d<-read.csv('viewer_data.csv')
+#or download to your machine first
 #--Not recommended on machines with <32G RAM
 
 #--NOT RUN--
-# setwd(dirRdata)
+setwd(dirReportRdata)
 # d<-filter(d,country=='Kenya')
-# save(d,file='000_viewer_data_csv_Kenya.Rdata')
+save(d,file='000_viewer_data_csv.Rdata')
 
 ##--IF THE VIEWER_DATA.CSV WILL NOT LOAD OR TAKES TOO LONG TO LOAD- TRY THIS:
 setwd(dirRdata)
-load('000_viewer_data_csv_Kenya.Rdata')  #MORE COMPRESSED VERSION OF FILE WITH JUST KENYA
+load('000_viewer_data_csv.Rdata')  #MORE COMPRESSED VERSION OF FILE WITH JUST KENYA
 
 d<-dplyr::select(d,-X)  #get rid of an extra colunm
 
