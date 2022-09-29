@@ -1,14 +1,23 @@
 #-------------------Base Setup--------------------------------------------------
 rm(list=ls())
 
+LAPTOP<-TRUE #WORKING ON LAPTOP?
 
+#---Set Project Directories
+dirBase<-'/Volumes/GoogleDrive/'
+dirBaseL<-'/Volumes/GoogleDrive-116109725918193733454/' #diff on Laptop?
+
+if(LAPTOP==TRUE){dirBase<-dirBaseL}
 
 #---Set Project Directories
 
 ##--FIND THE PATH TO YOUR WORKING DIRECTORY-
 ##-IF YOU DON'T KNOW HOW- GO TO SESSION->SET WORKING DIRECTORY->CHOOSE DIRECTORY-> ##
 
-dirBase<-"~/git/forecast_viewer_file_prep_class/"
+dirBase<-paste0(dirBase,"Shared drives/Forecast Viewer/")
+
+#dirBase<-"~/git/forecast_viewer_file_prep_class/"
+dirGit<-"~/git/forecast_viewer_file_prep_class/"
 
 
 
@@ -16,6 +25,13 @@ dirBase<-"~/git/forecast_viewer_file_prep_class/"
 dirViewer<-paste0(dirBase,'viewer/')
 dirViewerOutStatic<-paste0(dirViewer,'viewer_static_shapes/')
 dirViewerDynamic<-paste0(dirViewer,'viewer_dynamic_shapes/')
+
+#-R data files
+#dirRdata<-paste0(dirBase,'rdata/')
+dirBase2<-paste0(dirBase,'Shared drives/CHC Team Drive /')
+dirProj<-paste0(dirBase2,'project_machine_learning_forecasting/') #project directory
+dirReport<-paste0(dirProj,'forecast_reporting/')
+dirReportRdata<-paste0(dirReport,'forecast_reporting_Rdata/')
 
 #-R data files
 dirRdata<-paste0(dirBase,'rdata/')
